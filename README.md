@@ -1,1 +1,5 @@
-# -IPC1-_Proyecto1_201900018
+## PROYECTO 1 IPC 1
+Nombre: Victor Eduardo José Rodriguez Alonzo
+Carnet: 201900018
+Sección: D
+Curso: Introducción a la programación y computación 1.
