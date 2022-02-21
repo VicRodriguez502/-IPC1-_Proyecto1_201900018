@@ -22,7 +22,7 @@ public class Pantalla_login extends JFrame implements ActionListener{
     public Pantalla_login(){
         //Creamos el boton de carga masiva
         masiva = new JButton("Carga Masiva");
-        masiva.setBounds(10,400,180,35);
+        masiva.setBounds(10,500,180,35);
         masiva.setFont(new Font("Franklin Gothic Medium", Font.BOLD,14));
         masiva.setBackground(azulejo);
         masiva.setForeground(Color.white);
@@ -82,7 +82,7 @@ public class Pantalla_login extends JFrame implements ActionListener{
         this.setLayout(null);
         //TAMAÑO DE MI VENTANA
         //POSICION X, POSICION Y, TAMAÑO X, TAMAÑO Y
-        this.setBounds(500, 150, 500, 500);
+        this.setBounds(500, 150, 600, 600);
         //QUITAR EL CAMBIO DE TAMAÑO
         this.setResizable(false);
         //CERRAR Y TERMINAR EL PROCESO
