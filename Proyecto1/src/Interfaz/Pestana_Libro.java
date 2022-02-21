@@ -36,7 +36,7 @@ public class Pestana_Libro extends JFrame implements ActionListener{
         ingresar.addActionListener(this);
         this.add(ingresar);    
         
-    //Cuadro Texto para ingresar tipo
+    //Cuadro Texto para ingresar tipo, este se modificara por que tiene que llevar una lista 
         tip = new JTextField();
         tip.setBounds(70,170,200,25);
         tip.setFont(new Font("Verdana", Font.BOLD,12));

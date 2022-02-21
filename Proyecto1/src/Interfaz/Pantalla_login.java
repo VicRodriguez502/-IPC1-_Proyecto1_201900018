@@ -11,9 +11,9 @@ public class Pantalla_login extends JFrame implements ActionListener{
     JLabel usuario;
     JLabel contra;
     JTextField inusuario;
-    JTextField incontra;
-    JButton login;
-    JButton masiva;
+    JPasswordField incontra;
+    static JButton login;
+    static JButton masiva;
     //Colores
     Color plateado = new Color(113, 125, 126);
     Color verdeclaro = new Color(130, 224, 170);
@@ -49,7 +49,7 @@ public class Pantalla_login extends JFrame implements ActionListener{
         this.add(inusuario);
         
         //creando cuadro de texto para ingresar contraseña
-        incontra = new JTextField();
+        incontra = new JPasswordField();
         incontra.setBounds(100,180,300,35);
         incontra.setFont(new Font("Verdana", Font.BOLD,14));
         incontra.setVisible(true);
@@ -93,9 +93,16 @@ public class Pantalla_login extends JFrame implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource()== login) {
+            login();
+            
+        }
     }
-  
+    
+  public void login(){
+      JOptionPane.showMessageDialog(this,"Hola mundo");
+  }
 }
     
 
