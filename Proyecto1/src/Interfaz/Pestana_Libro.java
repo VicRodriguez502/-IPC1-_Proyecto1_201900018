@@ -4,21 +4,24 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
 import javax.swing.*;
 
-public class Pestana_Libro extends JFrame implements ActionListener{
+public class Pestana_Libro extends JPanel implements ActionListener{
+    JPanel book;
     JLabel idl, namel, autor, codigo, tipo;
-    JTextField lib, nombrel, autor1, cod, tip;
+    JTextField lib, nombrel, autor1, cod;
     JButton ingresar, masiva1;
+    private final JComboBox<String> tip;
     Color azulito = new Color(46, 64, 83);
     Color verdeclaro = new Color(130, 224, 170);
     Color azulejo = new Color(39, 55, 70);
+    Color plateado = new Color(113, 125, 126);
     
     public Pestana_Libro(){
-    //Creando boton para carga masiva
     //Creamos el boton de carga masiva
         masiva1 = new JButton("Carga Masiva");
-        masiva1.setBounds(10,600,180,25);
+        masiva1.setBounds(10,580,150,25);
         masiva1.setFont(new Font("Franklin Gothic Medium", Font.BOLD,14));
         masiva1.setBackground(azulejo);
         masiva1.setForeground(Color.white);
@@ -37,11 +40,16 @@ public class Pestana_Libro extends JFrame implements ActionListener{
         this.add(ingresar);    
         
     //Cuadro Texto para ingresar tipo, este se modificara por que tiene que llevar una lista 
-        tip = new JTextField();
+        setLayout(null);
+        tip=new JComboBox<String>();
         tip.setBounds(70,170,200,25);
         tip.setFont(new Font("Verdana", Font.BOLD,12));
-        tip.setVisible(true);
-        this.add(tip);    
+        add(tip);
+        tip.addItem("Libros");
+        tip.addItem("Revistas");
+        tip.addItem("Libros Electrónicos");
+        tip.addActionListener(this);
+        
         
     //Cuadro Texto para ingresar codigo
         cod = new JTextField();
@@ -112,14 +120,22 @@ public class Pestana_Libro extends JFrame implements ActionListener{
         this.add(idl);
     
      //creación de la ventana de pestaña de libro
-        this.setTitle("Libros");
+        book = new JPanel();
+	book.setBounds(400,220,350,300);
+        book.setBackground(azulito);
+        this.add(book);
+    
+     
+     //Diseño de Jpanel
+        this.setBackground(plateado);
         this.setLayout(null);
-        this.setBounds(500, 150, 1000, 700);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+        
     }
     @Override
     public void actionPerformed(ActionEvent e) {
     }
+
+    
+
+    
 }
