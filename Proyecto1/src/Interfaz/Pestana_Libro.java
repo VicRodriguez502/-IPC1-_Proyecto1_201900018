@@ -8,16 +8,20 @@ import java.awt.event.ItemListener;
 import javax.swing.*;
 
 public class Pestana_Libro extends JPanel implements ActionListener{
-    JPanel book;
+    //Variables para titulos, botones, cuadros de texto
     JLabel idl, namel, autor, codigo, tipo;
     JTextField lib, nombrel, autor1, cod;
     JButton ingresar, masiva1;
     private final JComboBox<String> tip;
+    
+    //Colores
     Color azulito = new Color(46, 64, 83);
     Color verdeclaro = new Color(130, 224, 170);
     Color azulejo = new Color(39, 55, 70);
     Color plateado = new Color(113, 125, 126);
+    Color blanco = new Color(250, 250, 250);
     
+    //Constructor para la pestaña de libros
     public Pestana_Libro(){
     //Creamos el boton de carga masiva
         masiva1 = new JButton("Carga Masiva");
@@ -39,7 +43,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         ingresar.addActionListener(this);
         this.add(ingresar);    
         
-    //Cuadro Texto para ingresar tipo, este se modificara por que tiene que llevar una lista 
+    //Cuadro Texto para ingresar tipo
         setLayout(null);
         tip=new JComboBox<String>();
         tip.setBounds(70,170,200,25);
@@ -83,7 +87,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
     tipo = new JLabel("Tipo:");
         tipo.setBounds(10,170,80,20);
         tipo.setFont(new Font("Arial Narrow", Font.BOLD,16));
-        tipo.setForeground(azulito);
+        tipo.setForeground(blanco);
         tipo.setVisible(true);
         this.add(tipo);
         
@@ -91,7 +95,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
     codigo = new JLabel("Código:");
         codigo.setBounds(10,130,80,20);
         codigo.setFont(new Font("Arial Narrow", Font.BOLD,16));
-        codigo.setForeground(azulito);
+        codigo.setForeground(blanco);
         codigo.setVisible(true);
         this.add(codigo);
    
@@ -99,7 +103,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
     autor = new JLabel("Autor:");
         autor.setBounds(10,90,80,20);
         autor.setFont(new Font("Arial Narrow", Font.BOLD,16));
-        autor.setForeground(azulito);
+        autor.setForeground(blanco);
         autor.setVisible(true);
         this.add(autor);
         
@@ -107,7 +111,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         namel = new JLabel("Libro:");
         namel.setBounds(10,50,80,20);
         namel.setFont(new Font("Arial Narrow", Font.BOLD,16));
-        namel.setForeground(azulito);
+        namel.setForeground(blanco);
         namel.setVisible(true);
         this.add(namel);
         
@@ -115,17 +119,10 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         idl = new JLabel("ID Libro:");
         idl.setBounds(10,10,80,20);
         idl.setFont(new Font("Arial Narrow", Font.BOLD,16));
-        idl.setForeground(azulito);
+        idl.setForeground(blanco);
         idl.setVisible(true);
         this.add(idl);
-    
-     //creación de la ventana de pestaña de libro
-        book = new JPanel();
-	book.setBounds(400,220,350,300);
-        book.setBackground(azulito);
-        this.add(book);
-    
-     
+        
      //Diseño de Jpanel
         this.setBackground(plateado);
         this.setLayout(null);

@@ -7,7 +7,7 @@ public class VentanaPrincipal extends JFrame{
     private JPanel pestañita;
     
     Color azulito = new Color(46, 64, 83);
-    Color verdeclaro = new Color(130, 224, 170);
+    Color rojo = new Color(203, 67, 53);
     Color azulejo = new Color(39, 55, 70);
     Color plateado = new Color(113, 125, 126);
     
@@ -22,7 +22,7 @@ public class VentanaPrincipal extends JFrame{
         //Creamos la configuracion de Jpanel para poder colocar las pestañas 
         JTabbedPane xx = new JTabbedPane(JTabbedPane.TOP);
         xx.setBounds(10,11,1290,650);
-        xx.setBackground(Color.green);
+        xx.setBackground(Color.ORANGE);
         xx.setForeground(Color.BLACK);
         xx.setFont(new Font("Arial Narrow", Font.PLAIN,16));
         pestañita.add(xx);
@@ -31,10 +31,22 @@ public class VentanaPrincipal extends JFrame{
         Pestana_Libro pl = new Pestana_Libro();
         xx.addTab("Libros", null, pl,null);
         
+        //Mandamos a llamar la pestaña Prestamos
+        Pestana_Prestamos pp = new Pestana_Prestamos();
+        xx.addTab("Prestamos", null, pp,null);
+        
+        //Mandamos a llamar la pestaña de Reportes
+        Pestana_Reportes pr = new Pestana_Reportes();
+        xx.addTab("Reportes", null, pr,null);
+        
+        //Mandamos a llamar la pestaña de Graficas 
+        Pestana_Graficas pg = new Pestana_Graficas();
+        xx.addTab("Gráficas", null, pg,null);
+        
         //DISEÑO DE LA VENTANA
         this.setTitle("Administrador | Biblioteca MS©");
         this.setBounds(20,20,1340,730);
-        this.getContentPane().setBackground(azulejo);
+        this.getContentPane().setBackground(rojo);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
