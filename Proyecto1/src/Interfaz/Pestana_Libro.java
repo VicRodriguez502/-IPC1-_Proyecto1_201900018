@@ -6,12 +6,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class Pestana_Libro extends JPanel implements ActionListener{
     //Variables para titulos, botones, cuadros de texto
     JLabel idl, namel, autor, codigo, tipo;
     JTextField lib, nombrel, autor1, cod;
     JButton ingresar, masiva1;
+    static JTable tablalibros;
+    static Object[][] datos;
     private final JComboBox<String> tip;
     
     //Colores
@@ -84,7 +87,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         this.add(lib);
      
     //Creamos el titulo tipo
-    tipo = new JLabel("Tipo:");
+        tipo = new JLabel("Tipo:");
         tipo.setBounds(10,170,80,20);
         tipo.setFont(new Font("Arial Narrow", Font.BOLD,16));
         tipo.setForeground(blanco);
@@ -92,7 +95,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         this.add(tipo);
         
     //Creamos el titulo código   
-    codigo = new JLabel("Código:");
+        codigo = new JLabel("Código:");
         codigo.setBounds(10,130,80,20);
         codigo.setFont(new Font("Arial Narrow", Font.BOLD,16));
         codigo.setForeground(blanco);
@@ -100,7 +103,7 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         this.add(codigo);
    
     //Creamos el titulo autor
-    autor = new JLabel("Autor:");
+        autor = new JLabel("Autor:");
         autor.setBounds(10,90,80,20);
         autor.setFont(new Font("Arial Narrow", Font.BOLD,16));
         autor.setForeground(blanco);
@@ -123,7 +126,10 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         idl.setVisible(true);
         this.add(idl);
         
-     //Diseño de Jpanel
+    //Creación de tabla para datos de los libros ingresados    
+       
+        
+    //Diseño de Jpanel
         this.setBackground(plateado);
         this.setLayout(null);
         

@@ -2,8 +2,6 @@
 package Interfaz;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 public class Pestana_Graficas extends JPanel {
