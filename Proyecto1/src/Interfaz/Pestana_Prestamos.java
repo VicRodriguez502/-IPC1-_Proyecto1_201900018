@@ -36,7 +36,7 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
         this.add(fecha);
         
         //Creamos el titulo Usuario
-        usuario = new JLabel("ID Usuario");
+        usuario = new JLabel("ID Usuario:");
         usuario.setBounds(10,10,80,20);
         usuario.setFont(new Font("Arial Narrow", Font.BOLD,16));
         usuario.setForeground(blanco);
