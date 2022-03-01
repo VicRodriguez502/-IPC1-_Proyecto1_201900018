@@ -1,37 +1,27 @@
 package Clases;
 
 public class ObLibros {
-    //Creamos el objeto Libros
-    //Atributos
+    //Creamos los Atributos del objeto de libros
     private int IDlibro;
     private String Titulo;
     private String Autor;
     private int Tipos;
     private int Copias;
+    private int Disponibles;
+    private int ocupados;
     
-    //Constructor
-
-    public ObLibros(int IDlibro, String Titulo, String Autor, int Tipos, int Copias) {
+    //Realizamos el constructor para este objeto 
+    public ObLibros(int IDlibro, String Titulo, String Autor, int Tipos, int Copias, int Disponibles, int ocupados) {
         this.IDlibro = IDlibro;
         this.Titulo = Titulo;
         this.Autor = Autor;
         this.Tipos = Tipos;
         this.Copias = Copias;
+        this.Disponibles = Disponibles;
+        this.ocupados = ocupados;
     }
-    //Metodo para mostrar el objeto de libros
-    public void MostrarIngresoLib(){
-        System.out.println("*************************************");
-        System.out.println("**       INGRESO DE LIBROS         **");
-        System.out.println("ID Libro: " + IDlibro);
-        System.out.println("Titulo: " + Titulo);
-        System.out.println("Autor: " + Autor);
-        System.out.println("Tipos: " + Tipos);
-        System.out.println("Copias: " + Copias);
-    }
-    
-    
-   //Encapsulamiento
-  /**
+    //Encapsulamos con get y set todos los parametros
+    /**
      * @return the IDlibro
      */
     public int getIDlibro() {
@@ -100,6 +90,35 @@ public class ObLibros {
     public void setCopias(int Copias) {
         this.Copias = Copias;
     }
+
+    /**
+     * @return the Disponibles
+     */
+    public int getDisponibles() {
+        return Disponibles;
+    }
+
+    /**
+     * @param Disponibles the Disponibles to set
+     */
+    public void setDisponibles(int Disponibles) {
+        this.Disponibles = Disponibles;
+    }
+
+    /**
+     * @return the ocupados
+     */
+    public int getOcupados() {
+        return ocupados;
+    }
+
+    /**
+     * @param ocupados the ocupados to set
+     */
+    public void setOcupados(int ocupados) {
+        this.ocupados = ocupados;
+    }
+    
     
     
 }

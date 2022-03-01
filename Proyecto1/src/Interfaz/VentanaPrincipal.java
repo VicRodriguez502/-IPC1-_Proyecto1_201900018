@@ -7,7 +7,7 @@ public class VentanaPrincipal extends JFrame{
     private JPanel pestañita;
     
     Color azulito = new Color(46, 64, 83);
-    Color rojo = new Color(203, 67, 53);
+    Color rojo = new Color(33, 33, 33);
     Color azulejo = new Color(39, 55, 70);
     Color plateado = new Color(113, 125, 126);
     
@@ -27,6 +27,9 @@ public class VentanaPrincipal extends JFrame{
         xx.setFont(new Font("Arial Narrow", Font.PLAIN,16));
         pestañita.add(xx);
         
+    //*************************************************************************
+    //FORMATO PARA LLAMAR TODAS LAS PESTAÑAS A LA VENTANA PRINCIPAL     
+        
         //Mandamos a llamar la pestaña Libros
         Pestana_Libro pl = new Pestana_Libro();
         xx.addTab("Libros", null, pl,null);
@@ -43,6 +46,11 @@ public class VentanaPrincipal extends JFrame{
         Pestana_Graficas pg = new Pestana_Graficas();
         xx.addTab("Gráficas", null, pg,null);
         
+        
+    //*************************************************************************
+    //CREACIÓN DE LA VENTANA PRINCIPAL
+
+    
         //DISEÑO DE LA VENTANA
         this.setTitle("Administrador | Biblioteca MS©");
         this.setBounds(20,20,1340,730);

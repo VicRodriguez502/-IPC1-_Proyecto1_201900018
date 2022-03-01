@@ -19,6 +19,10 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
     Color blanco = new Color(250, 250, 250);
     
     public Pestana_Prestamos(){
+        
+    //*************************************************************************
+    //CREACIÓN DE TODOS LOS TITULOS
+    
         //Creamos el titulo Usuario
         libro = new JLabel("ID Libro:");
         libro.setBounds(10,50,80,20);
@@ -42,7 +46,10 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
         usuario.setForeground(blanco);
         usuario.setVisible(true);
         this.add(usuario);
-        
+     
+    //************************************************************************
+    //CREACIÓN TODOS LOS CUADROS DE TEXTO
+    
         //Cuadro Texto para ingresar ID libro
         idusu = new JTextField();
         idusu.setBounds(120,10,200,25);
@@ -64,6 +71,9 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
         idfecha.setVisible(true);
         this.add(idfecha);
         
+    //*************************************************************************
+    //CREACIÓN TODOS LSO BOTONES    
+        
         //Creando botton para ingresar datos de libros
         prestar = new JButton("Prestar");
         prestar.setBounds(130,120,180,25);
@@ -83,6 +93,9 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
         masiva2.setVisible(true);
         masiva2.addActionListener(this);
         this.add(masiva2); 
+        
+    //************************************************************************
+    //CREACIÓN DE LA PESTAÑA PRESTAMOS    
         
         //Diseño de Jpanel
         this.setBackground(plateado);
