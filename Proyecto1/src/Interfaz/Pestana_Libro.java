@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
+
 
 public class Pestana_Libro extends JPanel implements ActionListener{
     //Variables para titulos, botones, cuadros de texto
@@ -16,6 +18,12 @@ public class Pestana_Libro extends JPanel implements ActionListener{
     static JTable tablalibros;
     static Object[][] datos;
     private final JComboBox<String> tip;
+    
+    //ATRIBUROS PARA LA CARGA DE ARCHIVOS JSON
+    String contenido = "";
+    File json;
+    FileReader lectura;
+    BufferedReader buff;
     
     //Colores
     Color azulito = new Color(46, 64, 83);
@@ -146,11 +154,52 @@ public class Pestana_Libro extends JPanel implements ActionListener{
         this.setLayout(null);
         
     }
+    //MÉTODO YA CREADO POR JAVA PARA ABRIR UNA VENTANA EMERGENTE PARA SUBIDA DE DATOS
+    //se modificara para poder leer un archivo json
+    public void leerarchivos(){
+        try{
+        JFileChooser fc = new JFileChooser();
+        int op = fc.showOpenDialog(this);
+        if(op == JFileChooser.APPROVE_OPTION){
+            json = fc.getSelectedFile();
+        }else{
+            System.out.println("No abriste nada");
+        }
+        lectura = new FileReader(json); //Obtendremos el texto 
+        buff = new BufferedReader(lectura); //leera el texto
+        String casilla;
+        //Lo siguiente se leera linea a linea
+        while ((casilla = buff.readLine()) != null){
+            contenido += casilla;
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (null != lectura){
+                    lectura.close();
+                }
+            } catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        
+    }
+            
+            
     @Override
-    public void actionPerformed(ActionEvent e) {
+    //se le dio vida al boton de carga masiva 1
+    public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() == masiva1){
+            System.out.println("Carga de archivo Json");
+            leerarchivos();
+            System.out.println(contenido);
+        }
+            
+    }
     }
 
     
 
     
-}
+

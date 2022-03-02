@@ -1,0 +1,14 @@
+{
+    "Libros":[
+        {
+            "IDlibro": 1,
+            "Titulo": "titulo libro",
+            "Autor": "USAC",
+            "Tipos": 1,
+            "Copias": 60,
+            "Disponibles": 50,
+            "Ocupados": 10,
+
+        }
+    ]
+}

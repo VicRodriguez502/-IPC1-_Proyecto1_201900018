@@ -8,7 +8,7 @@ public class ObLibros {
     private int Tipos;
     private int Copias;
     private int Disponibles;
-    private int ocupados;
+    private int Ocupados;
     
     //Realizamos el constructor para este objeto 
     public ObLibros(int IDlibro, String Titulo, String Autor, int Tipos, int Copias, int Disponibles, int ocupados) {
@@ -18,7 +18,7 @@ public class ObLibros {
         this.Tipos = Tipos;
         this.Copias = Copias;
         this.Disponibles = Disponibles;
-        this.ocupados = ocupados;
+        this.Ocupados = ocupados;
     }
     //Encapsulamos con get y set todos los parametros
     /**
@@ -109,14 +109,14 @@ public class ObLibros {
      * @return the ocupados
      */
     public int getOcupados() {
-        return ocupados;
+        return Ocupados;
     }
 
     /**
      * @param ocupados the ocupados to set
      */
     public void setOcupados(int ocupados) {
-        this.ocupados = ocupados;
+        this.Ocupados = ocupados;
     }
     
     

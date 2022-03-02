@@ -11,6 +11,8 @@ public class Proyecto1 {
     public static ObUsuarios[] obuser = new ObUsuarios[50];
     public static ObPrestamos[] obpres = new ObPrestamos[200];
     public static ObRegistros[] obreg = new ObRegistros[100];
+    //CONTADORES PARA CARGA MASIVA
+    public static int contusuario, contlibros, contprestamos;
     
     public static void main(String[] args) {
         //Pantalla_login pl = new Pantalla_login();
