@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.*;
 
 public class Pantalla_login extends JFrame implements ActionListener{
@@ -19,6 +22,12 @@ public class Pantalla_login extends JFrame implements ActionListener{
     Color plateado = new Color(113, 125, 126);
     Color verdeclaro = new Color(130, 224, 170);
     Color azulejo = new Color(39, 55, 70);
+    
+    //ATRIBUTOS Y VARIABLES PARA CREAR EL JSON Y CARGA MASIVA
+    String contenido1 = "";
+    File json1;
+    FileReader lectura1;
+    BufferedReader buff1;
     
     public Pantalla_login(){
      //*********************************************************************************
@@ -121,12 +130,47 @@ public class Pantalla_login extends JFrame implements ActionListener{
         this.setVisible(true);
         
     }
+    //MÉTODO YA CREADO POR JAVA PARA ABRIR UNA VENTANA EMERGENTE PARA SUBIDA DE DATOS
+    //se modificara para poder leer un archivo json
+    public void leerarchivos(){
+        try{
+        JFileChooser fc = new JFileChooser();
+        int op = fc.showOpenDialog(this);
+        if(op == JFileChooser.APPROVE_OPTION){
+            json1 = fc.getSelectedFile();
+        }else{
+            System.out.println("No abriste nada");
+        }
+        lectura1 = new FileReader(json1); //Obtendremos el texto 
+        buff1 = new BufferedReader(lectura1); //leera el texto
+        String casilla1;
+        //Lo siguiente se leera linea a linea
+        while ((casilla1 = buff1.readLine()) != null){
+            contenido1 += casilla1;
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (null != lectura1){
+                    lectura1.close();
+                }
+            } catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource()== login) {
             login();
-            
+        }
+        if (ae.getSource() == masiva){
+            System.out.println("Carga de archivo Json");
+            leerarchivos();
+            System.out.println(contenido1);
         }
     }
     

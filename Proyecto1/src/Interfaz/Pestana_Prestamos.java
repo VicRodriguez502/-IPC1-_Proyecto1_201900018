@@ -3,6 +3,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.*;
 
 public class Pestana_Prestamos extends JPanel implements ActionListener{
@@ -10,6 +13,12 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
     JLabel usuario, libro, fecha;
     JTextField idusu, idlb, idfecha;
     JButton prestar, masiva2;
+    
+    //ATRIBUTOS Y VARIABLES PARA CREAR EL JSON Y CARGA MASIVA
+    String contenido2 = "";
+    File json2;
+    FileReader lectura2;
+    BufferedReader buff2;
     
     //Colores
     Color azulito = new Color(46, 64, 83);
@@ -101,9 +110,47 @@ public class Pestana_Prestamos extends JPanel implements ActionListener{
         this.setBackground(plateado);
         this.setLayout(null);
     }
-
+    
+    //MÉTODO YA CREADO POR JAVA PARA ABRIR UNA VENTANA EMERGENTE PARA SUBIDA DE DATOS
+    //se modificara para poder leer un archivo json
+    public void leerarchivos(){
+        try{
+        JFileChooser fc = new JFileChooser();
+        int op = fc.showOpenDialog(this);
+        if(op == JFileChooser.APPROVE_OPTION){
+            json2 = fc.getSelectedFile();
+        }else{
+            System.out.println("No abriste nada");
+        }
+        lectura2 = new FileReader(json2); //Obtendremos el texto 
+        buff2 = new BufferedReader(lectura2); //leera el texto
+        String casilla2;
+        //Lo siguiente se leera linea a linea
+        while ((casilla2 = buff2.readLine()) != null){
+            contenido2 += casilla2;
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (null != lectura2){
+                    lectura2.close();
+                }
+            } catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        
+    }
+    
+    
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent ae) {
+            if(ae.getSource() == masiva2){
+            System.out.println("Carga de archivo Json");
+            leerarchivos();
+            System.out.println(contenido2);
+        }
     }
     }
     

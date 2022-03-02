@@ -1,0 +1,14 @@
+{
+    "Prestamos":[
+       {
+        "IDlibro": 1,
+        "IDusuario": 2,
+        "fechasinda": "20/02/2022",
+       },
+       {
+        "IDlibro": 2
+        "IDusuario": 2,
+        "fechasinda": "20/02/2022",
+       }
+    ]
+}
