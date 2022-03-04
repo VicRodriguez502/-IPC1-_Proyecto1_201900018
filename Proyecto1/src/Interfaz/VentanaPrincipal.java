@@ -1,23 +1,29 @@
 package Interfaz;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaPrincipal extends JFrame{
+public class VentanaPrincipal extends JFrame implements ActionListener{
     private JPanel pestañita;
+    JButton masiva1;
     
     Color azulito = new Color(46, 64, 83);
     Color rojo = new Color(33, 33, 33);
     Color azulejo = new Color(39, 55, 70);
     Color plateado = new Color(113, 125, 126);
     
-    public VentanaPrincipal(){
+    public VentanaPrincipal() {
+        
+        
         
         //Creación de pestañita para un borde bonito
         pestañita = new JPanel();
         pestañita.setBorder(new EmptyBorder(5,25,5,5));
         setContentPane(pestañita);
         pestañita.setLayout(null);
+        
         
         //Creamos la configuracion de Jpanel para poder colocar las pestañas 
         JTabbedPane xx = new JTabbedPane(JTabbedPane.TOP);
@@ -49,7 +55,15 @@ public class VentanaPrincipal extends JFrame{
         
     //*************************************************************************
     //CREACIÓN DE LA VENTANA PRINCIPAL
-
+     //Creamos el boton de carga masiva
+        masiva1 = new JButton("Actualizar");
+        masiva1.setBounds(500, 0, 150, 25);
+        masiva1.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 14));
+        masiva1.setBackground(azulito);
+        masiva1.setForeground(Color.white);
+        masiva1.setVisible(true);
+        masiva1.addActionListener(this);
+        this.add(masiva1);
     
         //DISEÑO DE LA VENTANA
         this.setTitle("Administrador | Biblioteca MS©");
@@ -59,6 +73,14 @@ public class VentanaPrincipal extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == masiva1) {
+            VentanaPrincipal v = new VentanaPrincipal ();
+            this.dispose();
+        }
     }
     
 }
