@@ -8,8 +8,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.*;
-import proyecto1.*;
 import Clases.ObLibros;
+import static proyecto1.Proyecto1.contlibros;
+import static proyecto1.Proyecto1.oblibros;
 
 public class Pestana_Libro extends JPanel implements ActionListener {
 
@@ -144,7 +145,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
 
         //CREACION DE TABLA
         String[] cabeza = {"ID Libro", "Nombre Libro", "Autor", "tipo", "Copias", "Disponibles", "Ocupados"}; //Arreglo del encabezado
-        datos = Proyecto1.mlibro();
+        datos = mlibro();
         tablalibros = new JTable(datos, cabeza);
         JScrollPane js = new JScrollPane(tablalibros);
         js.setBounds(300, 10, 950, 600);
@@ -156,6 +157,36 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         this.setBackground(plateado);
         this.setLayout(null);
 
+    }
+    //MÉTODO PARA AÑADIR EL ARREGLO DE LIBROS
+    public static void crearlib(ObLibros nuevoL) {
+        if (contlibros < oblibros.length) {
+            oblibros[contlibros] = nuevoL;
+            contlibros++;
+        }
+    }
+    public static Object[][] mlibro() {
+        Object[][] libros = new Object[contlibros][7];
+        for (int i = 0; i < contlibros; i++) {
+            if (oblibros[i] != null) {
+                libros[i][0] = oblibros[i].getIDlibro();
+                libros[i][1] = oblibros[i].getTitulo();
+                libros[i][2] = oblibros[i].getAutor();
+              //  libros[i][3] = oblibros[i].getTipos();
+                if (oblibros[i].getTipos() == 1) {
+                    libros[i][3] = "Libro";
+                                          
+                }else if (oblibros[i].getTipos() == 2){
+                    libros[i][3] = "Revista";
+                }else if (oblibros[i].getTipos() == 3){
+                    libros[i][3] = "Libro Electronico";
+                }
+                libros[i][4] = oblibros[i].getCopias();
+                libros[i][5] = oblibros[i].getDisponibles();
+                libros[i][6] = oblibros[i].getOcupados();
+            }
+        }
+        return libros;
     }
 
     //MÉTODO YA CREADO POR JAVA PARA ABRIR UNA VENTANA EMERGENTE PARA SUBIDA DE DATOS
@@ -211,7 +242,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
                 t = 3;
             }
             ObLibros ob = new ObLibros(ID,Nom, aut, t, c, 1, 0);
-            Proyecto1.crearlib(ob);
+            crearlib(ob);
             lib.setText("");
             nombrel.setText("");
             autor1.setText("");
