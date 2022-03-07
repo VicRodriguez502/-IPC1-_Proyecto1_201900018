@@ -1,9 +1,7 @@
 package proyecto1;
 
 import Interfaz.Pantalla_login;
-import Interfaz.VentanaPrincipal;
 import Clases.*;
-import javax.swing.JOptionPane;
 
 public class Proyecto1 {
 
@@ -16,8 +14,7 @@ public class Proyecto1 {
     public static int contusuario = 0, contlibros = 0, contprestamos = 0; //Inicializando contador
 
     public static void main(String[] args) {
-        //Pantalla_login pl = new Pantalla_login();
-        VentanaPrincipal vp = new VentanaPrincipal();
+        Pantalla_login pl = new Pantalla_login();
     }
 
 }

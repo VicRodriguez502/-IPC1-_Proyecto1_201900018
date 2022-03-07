@@ -20,6 +20,18 @@ public class ObLibros {
         this.Disponibles = Disponibles;
         this.Ocupados = ocupados;
     }
+    //METODO PARA MOSTRAR LOS OBJETOS
+    public void Mostrandolibros(){
+        System.out.println("******************************");
+        System.out.println("**            LIBRO         **");
+        System.out.println("IDlibro: " + IDlibro);
+        System.out.println("Titulo: " + Titulo);
+        System.out.println("Autor: " + Autor);
+        System.out.println("Tipos: " + Tipos);
+        System.out.println("Copias: "+ Copias);
+        System.out.println("Copias: "+ Disponibles);
+        System.out.println("Copias: "+ Ocupados);
+    }
     //Encapsulamos con get y set todos los parametros
     /**
      * @return the IDlibro

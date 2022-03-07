@@ -1,14 +1,166 @@
 {
-    "Libros":[
-        {
-            "IDlibro": 1,
-            "Titulo": "titulo libro",
-            "Autor": "USAC",
-            "Tipos": 1,
-            "Copias": 60,
-            "Disponibles": 50,
-            "Ocupados": 10,
-
-        }
-    ]
+	"Libros":[
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		}
+		,
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		}
+		,		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		},
+		{
+			"Titulo": "titulo libro",
+			"ID": 1,
+			"Autor":  "USAC",
+			"Tipo": 1,
+			"Copias": 60,
+			"Disponibles": 50,
+			"Ocupados": 10
+		}
+	]
 }

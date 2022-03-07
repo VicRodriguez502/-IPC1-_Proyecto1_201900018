@@ -6,9 +6,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import javax.swing.*;
 import Clases.ObLibros;
+import static Interfaz.Pestana_Libro.mlibro;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import static proyecto1.Proyecto1.contlibros;
 import static proyecto1.Proyecto1.oblibros;
 
@@ -143,6 +151,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         idl.setVisible(true);
         this.add(idl);
 
+        //******************************************************************************************
         //CREACION DE TABLA
         String[] cabeza = {"ID Libro", "Nombre Libro", "Autor", "tipo", "Copias", "Disponibles", "Ocupados"}; //Arreglo del encabezado
         datos = mlibro();
@@ -158,6 +167,8 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         this.setLayout(null);
 
     }
+
+    //*************************************************************************
     //MÉTODO PARA AÑADIR EL ARREGLO DE LIBROS
     public static void crearlib(ObLibros nuevoL) {
         if (contlibros < oblibros.length) {
@@ -165,6 +176,9 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             contlibros++;
         }
     }
+
+    //****************************************************************************
+    //FUNCION PARA AÑADIR LOS LIBROS A LA TABLA 
     public static Object[][] mlibro() {
         Object[][] libros = new Object[contlibros][7];
         for (int i = 0; i < contlibros; i++) {
@@ -172,13 +186,12 @@ public class Pestana_Libro extends JPanel implements ActionListener {
                 libros[i][0] = oblibros[i].getIDlibro();
                 libros[i][1] = oblibros[i].getTitulo();
                 libros[i][2] = oblibros[i].getAutor();
-              //  libros[i][3] = oblibros[i].getTipos();
                 if (oblibros[i].getTipos() == 1) {
                     libros[i][3] = "Libro";
-                                          
-                }else if (oblibros[i].getTipos() == 2){
+
+                } else if (oblibros[i].getTipos() == 2) {
                     libros[i][3] = "Revista";
-                }else if (oblibros[i].getTipos() == 3){
+                } else if (oblibros[i].getTipos() == 3) {
                     libros[i][3] = "Libro Electronico";
                 }
                 libros[i][4] = oblibros[i].getCopias();
@@ -189,9 +202,9 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         return libros;
     }
 
-    //MÉTODO YA CREADO POR JAVA PARA ABRIR UNA VENTANA EMERGENTE PARA SUBIDA DE DATOS
-    //se modificara para poder leer un archivo json
-    public void leerarchivos() {
+    //******************************************************************************
+    //mÉTODO PARA abrir y leer en consola los datos de un archivo json
+    public void leerarchivo(){
         try {
             JFileChooser fc = new JFileChooser();
             int op = fc.showOpenDialog(this);
@@ -226,10 +239,13 @@ public class Pestana_Libro extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == masiva1) {
             System.out.println("Carga de archivo Json");
-            leerarchivos();
+            leerarchivo();
             System.out.println(contenido);
-        } else if (ae.getSource() == ingresar) { //Esto es para darle vida al boton ingresar
-            int ID = Integer.parseInt(lib.getText());
+
+        } //******************************************************************************
+        //Esto es para darle vida al boton de ingresar datos de libro
+        else if (ae.getSource() == ingresar) {
+            int ID = Integer.parseInt(lib.getText()); //Esto es para pasar datos de int a String
             String Nom = nombrel.getText();
             String aut = autor1.getText();
             int c = Integer.parseInt(cop.getText());
@@ -241,7 +257,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             } else if (tip.getSelectedItem() == "Libro Electrónico") {
                 t = 3;
             }
-            ObLibros ob = new ObLibros(ID,Nom, aut, t, c, 1, 0);
+            ObLibros ob = new ObLibros(ID, Nom, aut, t, c, 1, 0);
             crearlib(ob);
             lib.setText("");
             nombrel.setText("");
@@ -251,9 +267,3 @@ public class Pestana_Libro extends JPanel implements ActionListener {
 
     }
 }
-
-//JTextField lib, nombrel, autor1, cod;
-/*"Libros");
-        tip.addItem("Revistas");
-        tip.addItem("Libros Electrónicos");
- */

@@ -1,20 +1,20 @@
 {
-    "Usuarios":[
-        {
-            "ID": 1,
-            "nameusuario": "user",
-            "contrasena": "123456",
-            "facultad": "Administrador",
-            "carrera": "Administrador",
-            "tipouser": 1,
-        },
-        {
-            "ID": 2,
-            "nameusuario": "user",
-            "contrasena": "123456",
-            "facultad": "Ingenieria",
-            "carrera": "Ingenieria en Ciencias y Sistemas",
-            "tipouser": 2,
-        }
-    ]
+	"Usuarios":[
+		{
+			"ID": 1,
+			"Usuario": "user",
+			"Password": "123456",
+			"Facultad" : "Administrador",
+			"Carrera": "Administrador",
+			"Tipo":  1
+		},
+		{
+			"ID": 2,
+			"Usuario": "user1",
+			"Password": "123456",
+			"Tipo":  2,
+			"Facultad" : "Ingenieria",
+			"Carrera": "Ingenieria en ciencias y sistemas",
+		}
+	]
 }
