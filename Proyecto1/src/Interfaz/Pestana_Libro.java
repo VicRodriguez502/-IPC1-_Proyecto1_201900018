@@ -9,14 +9,15 @@ import java.io.File;
 import javax.swing.*;
 import Clases.ObLibros;
 import static Interfaz.Pestana_Libro.mlibro;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import javax.swing.table.DefaultTableModel;
 import static proyecto1.Proyecto1.contlibros;
 import static proyecto1.Proyecto1.oblibros;
 
@@ -153,11 +154,16 @@ public class Pestana_Libro extends JPanel implements ActionListener {
 
         //******************************************************************************************
         //CREACION DE TABLA
-        String[] cabeza = {"ID Libro", "Nombre Libro", "Autor", "tipo", "Copias", "Disponibles", "Ocupados"}; //Arreglo del encabezado
+        String[] cabeza = {"Nombre Libro", "ID Libro", "Autor", "tipo", "Copias", "Disponibles", "Ocupados"}; //Arreglo del encabezado
         datos = mlibro();
         tablalibros = new JTable(datos, cabeza);
         JScrollPane js = new JScrollPane(tablalibros);
         js.setBounds(300, 10, 950, 600);
+        DefaultTableModel modelo = new DefaultTableModel(datos, cabeza){
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
         this.add(js);
 
         //************************************************************************
@@ -176,6 +182,9 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             contlibros++;
         }
     }
+    
+    //******************************************************************************
+    //
 
     //****************************************************************************
     //FUNCION PARA AÑADIR LOS LIBROS A LA TABLA 
@@ -183,8 +192,8 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         Object[][] libros = new Object[contlibros][7];
         for (int i = 0; i < contlibros; i++) {
             if (oblibros[i] != null) {
-                libros[i][0] = oblibros[i].getIDlibro();
-                libros[i][1] = oblibros[i].getTitulo();
+                libros[i][0] = oblibros[i].getTitulo();
+                libros[i][1] = oblibros[i].getIDlibro(); 
                 libros[i][2] = oblibros[i].getAutor();
                 if (oblibros[i].getTipos() == 1) {
                     libros[i][3] = "Libro";
@@ -204,7 +213,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
 
     //******************************************************************************
     //mÉTODO PARA abrir y leer en consola los datos de un archivo json
-    public void leerarchivo(){
+    public void leerarchivo() {
         try {
             JFileChooser fc = new JFileChooser();
             int op = fc.showOpenDialog(this);
@@ -220,6 +229,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             while ((casilla = buff.readLine()) != null) {
                 contenido += casilla;
             }
+            cargamaslibros(contenido);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -232,6 +242,29 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             }
         }
 
+    }
+
+    //******************************************************************************
+    //METODO PARA CARGA MASIVA
+    public void cargamaslibros(String content) {
+        JsonParser parser = new JsonParser();
+        Object contenido = parser.parse(content);
+        JsonObject objetito = (JsonObject) contenido; 
+        Object jsonarrayobyeto = objetito.get("Libros");
+        JsonArray arreglo = (JsonArray) jsonarrayobyeto;
+        System.out.println("Cantidad Objetos: " + arreglo.size());
+        for (int i = 0; i < arreglo.size(); i++) {
+            JsonObject objeto = arreglo.get(i).getAsJsonObject();
+            String Titulo = objeto.get("Titulo").getAsString();
+            int ID = objeto.get("ID").getAsInt();
+            String Autor = objeto.get("Autor").getAsString();
+            int Tipo = objeto.get("Tipo").getAsInt();
+            int Copias = objeto.get("Copias").getAsInt();
+            int Disponibles = objeto.get("Disponibles").getAsInt();
+            int Ocupados = objeto.get("Ocupados").getAsInt();
+            ObLibros nuevo = new ObLibros(Titulo, ID, Autor, Tipo, Copias, Disponibles, Ocupados);
+            crearlib(nuevo);
+        }
     }
 
     @Override
@@ -257,7 +290,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             } else if (tip.getSelectedItem() == "Libro Electrónico") {
                 t = 3;
             }
-            ObLibros ob = new ObLibros(ID, Nom, aut, t, c, 1, 0);
+            ObLibros ob = new ObLibros(Nom, ID, aut, t, c, 1, 0);
             crearlib(ob);
             lib.setText("");
             nombrel.setText("");

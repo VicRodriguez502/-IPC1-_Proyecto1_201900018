@@ -11,7 +11,7 @@ public class ObLibros {
     private int Ocupados;
     
     //Realizamos el constructor para este objeto 
-    public ObLibros(int IDlibro, String Titulo, String Autor, int Tipos, int Copias, int Disponibles, int ocupados) {
+    public ObLibros(String Titulo,int IDlibro,String Autor, int Tipos, int Copias, int Disponibles, int ocupados) {
         this.IDlibro = IDlibro;
         this.Titulo = Titulo;
         this.Autor = Autor;
