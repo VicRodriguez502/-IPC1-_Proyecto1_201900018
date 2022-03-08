@@ -296,11 +296,10 @@ public class Pestana_Libro extends JPanel implements ActionListener {
     }
 
     //******************************************************************************
-    //
+    //METODO PARA RETORNAR TITULO DEL LIBRO VERIFICANDO SU ID
     public static String retornarlib(int ID) {
         for (int i = 0; i < contlibros; i++) {
             if (oblibros[i].getIDlibro() == ID) {
-                System.out.println(oblibros[i].getTitulo());
                 return oblibros[i].getTitulo();
             }
         }

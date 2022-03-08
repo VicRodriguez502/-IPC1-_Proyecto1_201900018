@@ -8,7 +8,6 @@ import com.google.gson.JsonParser;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.TextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
@@ -252,7 +251,7 @@ public class Pantalla_login extends JFrame implements ActionListener {
     }
 
     //*****************************************************************************
-    //FUNCION PARA RETONAR UN USUARIO CON EL ID
+    //METODO PARA RETONAR UN USUARIO CON EL ID
     public static String retornarusu(int ID) {
         for (int i = 0; i < contusuario; i++) {
             if (obuser[i].getID() == ID) {
@@ -265,6 +264,7 @@ public class Pantalla_login extends JFrame implements ActionListener {
     
 
     //*****************************************************************************
+    //METODO PARA VERIFICAR USUARIO
     public  boolean verificarusu(String user) {
         for (int i = 0; i < contusuario; i++) {
             if (obuser[i].getUsuario().equals(user)) {
@@ -275,6 +275,7 @@ public class Pantalla_login extends JFrame implements ActionListener {
     }
 
     //*****************************************************************************
+    //METODO PARA VERIFICAR CONTRASEÑA
     public boolean verificarcontra(String user, String contra) {
         for (int i = 0; i < contusuario; i++) {
             if (obuser[i].getUsuario().equals(user)) {
@@ -288,6 +289,7 @@ public class Pantalla_login extends JFrame implements ActionListener {
     }
 
     //*****************************************************************************
+    //FUNCION PARA RETONAR USUARIO
     public ObUsuarios retornarusuario(String user) {
         for (int i = 0; i < contusuario; i++) {
             if (obuser[i].getUsuario().equals(user)) {
@@ -299,19 +301,16 @@ public class Pantalla_login extends JFrame implements ActionListener {
     }
     
     public static String ReporteU = "";
-    
+           
             
             
-            
-            
+     //*****************************************************************************
+    //VERIFICACIÓN DE USUARIOS Y CONTRASEÑAS PARA QUE SOLO INGRESE TIPO 1
     public void ingresar() {
         String usu1, pass;
-        System.out.println(contusuario);
         usu1 = inusuario.getText();
         pass = incontra.getText();
         ReporteU = usu1;
-        System.out.println(usu1);
-        System.out.println(pass);
         if (verificarusu(usu1) == true) {
             if (verificarcontra(usu1, pass) == true) {
                 if (retornarusuario(usu1).getTipo() == 1) {
@@ -342,9 +341,6 @@ public class Pantalla_login extends JFrame implements ActionListener {
         if (e.getSource() == login) {
             ingresar();
 
-        }if (e.getSource() == actualizar){
-            Pantalla_login pl = new Pantalla_login();
-            this.dispose();
         }
     }
 }

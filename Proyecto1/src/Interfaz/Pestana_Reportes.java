@@ -161,7 +161,6 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
                     + "                <td>" + obuser[i].getFacultad()+ "</td>"
                     + "                <td>" + obuser[i].getCarrera()+ "</td>"
                     + "                <td>" + obuser[i].getTipo()+ "</td>"
-                   
                     + "            </tr>";
                 }
             }
@@ -327,15 +326,17 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
                     + "                <td>IDLibro</td>" //Esto es para el encabezado 
                     + "                <td>IDUsuario</td>"
                     + "                <td>FechaEntrega</td>"
+                    + "                <td>Status</td>"
                     + "            </tr>";
                     
             
             for(int i = 0; i < contprestamos; i++){ //MI CANTIDAD DE ARREGLO MI CONTADOR DE USUARIO
                 if(obpres[i] != null){ //Llamar arreglo 
                     cadenaHTML +=  "            <tr>"
-                    + "                <td>" + obpres[i].getIDlibro() + "</td>" //llamamos lo que contiene la tabla
-                    + "                <td>" + obpres[i].getIDusuario() + "</td>"
+                    + "                <td>" + Pantalla_login.retornarusu(obpres[i].getIDusuario()) + "</td>" //llamamos lo que contiene la tabla
+                    + "                <td>" + Pestana_Libro.retornarlib(obpres[i].getIDlibro()) + "</td>"
                     + "                <td>" + obpres[i].getFechasinda()+ "</td>"
+                    + "                <td>" + obpres[i].getStatus()+ "</td>"        
                     + "                </tr>";
                 }
             }
@@ -356,9 +357,9 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
         }
     }
       //**************************************************************************
-    //METODO PARA CREAR PDF DE USUARIOS
+    //METODO PARA CREAR PDF DE PRESTAMO
     public void pdfprestamo(String html){
-        try{ //E métodos para generar 3 reportes de arriba y abajo
+        try{ 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
             String nombre = "reportePrestamo_"+dtf.format(LocalDateTime.now());
             
@@ -398,7 +399,7 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
             }else if (report.getSelectedItem() == "Reporte de Libros"){
                 reporteL();
                 JOptionPane.showMessageDialog(this, "El reporte de Libros se realizao a la perfección");
-            } else if (report.getSelectedItem() == "Reporte de Prestamos"){
+            } else if (report.getSelectedItem() == "Reporte de pestamos"){
                 reporteP();
                 JOptionPane.showMessageDialog(this, "El reporte de Prestamos se realizao a la perfección");
             }
