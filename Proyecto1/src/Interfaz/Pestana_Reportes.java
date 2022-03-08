@@ -20,9 +20,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import static proyecto1.Proyecto1.contlibros;
+import static proyecto1.Proyecto1.contprestamos;
 import static proyecto1.Proyecto1.contregistro;
 import static proyecto1.Proyecto1.contusuario;
 import static proyecto1.Proyecto1.oblibros;
+import static proyecto1.Proyecto1.obpres;
 import static proyecto1.Proyecto1.obreg;
 import static proyecto1.Proyecto1.obuser;
 
@@ -84,12 +86,12 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
         
     //*************************************************************************
         //cREACIÓN DE LA TABLA DE Reportes
-        /*String[] titulo = {"Fecha de Generación", "Usuario", "Tipo de Reporte"};
-        datos = ;
+        String[] titulo = {"Fecha de Generación", "Usuario", "Tipo de Reporte"};
+        datos = mRegistro();
         tablaregistro = new JTable(datos, titulo);
         JScrollPane js = new JScrollPane(tablaregistro);
         js.setBounds(350, 10, 900, 600);
-        this.add(js);    */
+        this.add(js);    
         
     //*************************************************************************
     //CREACIÓN DE PESTAÑA REPORTE    
@@ -105,6 +107,19 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
             obreg[contregistro] = registro;
             contregistro++;
         }
+    }
+    //******************************************************************************
+    //FUNCIÓN PARA AÑADIR PRESTAMOS A LA TABLA
+    public static Object[][] mRegistro() {
+        Object[][] registro = new Object[contregistro][4];
+        for (int i = 0; i < contregistro; i++) {
+            if (obreg[i] != null) {
+                registro[i][0] = obreg[i].getReporteUsuarios() ;
+                registro[i][1] = obreg[i].getReporteLibrosReg();
+                registro[i][2] = obreg[i].getReportesPrestrealizados();
+            }
+        }
+        return registro;
     }
   
     
@@ -289,7 +304,91 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
             e.printStackTrace();
         }
     }
+    //******************************************************************************
+    //MÉTODO PARA EL REPORTE DE LIBROS
+    public void reporteP(){
+        String nombreReporte;
+        File reporte;
+        FileWriter fw;
+        BufferedWriter br;
+        String cadenaHTML;
+        
+        try {            
+            nombreReporte = "RP.html"; //Nombre del archivo html
+            reporte = new File(nombreReporte);
+            fw = new FileWriter(reporte);
+            br = new BufferedWriter(fw);
+            
+            cadenaHTML = "<html>"
+                    + "    <head>"
+                    + "    <body>"
+                    + "        <table border = 2>"
+                    + "            <tr>"
+                    + "                <td>IDLibro</td>" //Esto es para el encabezado 
+                    + "                <td>IDUsuario</td>"
+                    + "                <td>FechaEntrega</td>"
+                    + "            </tr>";
+                    
+            
+            for(int i = 0; i < contprestamos; i++){ //MI CANTIDAD DE ARREGLO MI CONTADOR DE USUARIO
+                if(obpres[i] != null){ //Llamar arreglo 
+                    cadenaHTML +=  "            <tr>"
+                    + "                <td>" + obpres[i].getIDlibro() + "</td>" //llamamos lo que contiene la tabla
+                    + "                <td>" + obpres[i].getIDusuario() + "</td>"
+                    + "                <td>" + obpres[i].getFechasinda()+ "</td>"
+                    + "                </tr>";
+                }
+            }
+            
+            cadenaHTML += "        </table>"
+                        + "    </body>"
+                        + "</html>";
+            
+            br.write(cadenaHTML);
+            
+            br.close();
+            fw.close();
+            
+            pdfprestamo(cadenaHTML);
+            
+        } catch (IOException ex) {
+            System.out.println("error escribiendo el reporte. Detalles " + ex.getMessage());
+        }
+    }
+      //**************************************************************************
+    //METODO PARA CREAR PDF DE USUARIOS
+    public void pdfprestamo(String html){
+        try{ //E métodos para generar 3 reportes de arriba y abajo
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+            String nombre = "reportePrestamo_"+dtf.format(LocalDateTime.now());
+            
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter.getInstance(document, new FileOutputStream(nombre+".pdf"));
+
+                document.open();
+                document.addAuthor("Victor Rodriguez");
+                document.addCreator("Victor Rodriguez");
+                document.addSubject("reportePrestamo");
+                document.addCreationDate();
+                document.addTitle("ReportePrestamo");
+
+                HTMLWorker htmlWorker = new HTMLWorker(document);
+                htmlWorker.parse(new StringReader(html));
+
+                document.close();
+                DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String FECHA = dtf1.format(LocalDateTime.now());
+                ObRegistros or = new ObRegistros(FECHA, ReporteU , "Reporte 3");
+                crearreporte(or);
+                
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     
+    //******************************************************************************
+    //METODO PARA DARLE VIDA A LOS BOTONES
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == generar) {
@@ -298,7 +397,10 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(this, "El reporte de Usuario se realizao a la perfección");
             }else if (report.getSelectedItem() == "Reporte de Libros"){
                 reporteL();
-                JOptionPane.showMessageDialog(this, "El reporte de Usuario se realizao a la perfección");
+                JOptionPane.showMessageDialog(this, "El reporte de Libros se realizao a la perfección");
+            } else if (report.getSelectedItem() == "Reporte de Prestamos"){
+                reporteP();
+                JOptionPane.showMessageDialog(this, "El reporte de Prestamos se realizao a la perfección");
             }
         }
     }
