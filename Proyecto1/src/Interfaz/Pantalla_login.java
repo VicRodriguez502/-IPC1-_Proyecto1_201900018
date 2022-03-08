@@ -217,7 +217,7 @@ public class Pantalla_login extends JFrame implements ActionListener {
     }
 
     //*****************************************************************************
-    //
+    //FUNCION PARA RETONAR UN USUARIO CON EL ID
     public static String retornarusu(int ID) {
         for (int i = 0; i < contusuario; i++) {
             if (obuser[i].getID() == ID) {

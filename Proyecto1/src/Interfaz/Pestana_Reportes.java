@@ -19,8 +19,10 @@ import java.io.StringReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
+import static proyecto1.Proyecto1.contlibros;
 import static proyecto1.Proyecto1.contregistro;
 import static proyecto1.Proyecto1.contusuario;
+import static proyecto1.Proyecto1.oblibros;
 import static proyecto1.Proyecto1.obreg;
 import static proyecto1.Proyecto1.obuser;
 
@@ -29,6 +31,8 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
     JLabel tiporep;
     JButton masiva3, generar;
     private final JComboBox<String> report;
+    static JTable tablaregistro;
+    static Object[][] datos;
     
     //Colores
     Color azulito = new Color(46, 64, 83);
@@ -79,6 +83,15 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
         this.add(generar);  
         
     //*************************************************************************
+        //cREACIÓN DE LA TABLA DE Reportes
+        /*String[] titulo = {"Fecha de Generación", "Usuario", "Tipo de Reporte"};
+        datos = ;
+        tablaregistro = new JTable(datos, titulo);
+        JScrollPane js = new JScrollPane(tablaregistro);
+        js.setBounds(350, 10, 900, 600);
+        this.add(js);    */
+        
+    //*************************************************************************
     //CREACIÓN DE PESTAÑA REPORTE    
         
         //Diseño de Jpanel
@@ -93,6 +106,7 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
             contregistro++;
         }
     }
+  
     
     //*****************************************************************************
     //MÉTODO PARA EL REPORTE DE USUARIOS
@@ -155,7 +169,7 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
     
     
     //**************************************************************************
-    //metodo para usuarios
+    //METODO PARA CREAR PDF DE USUARIOS
     public void pdfusuario(String html){
         try{ //E métodos para generar 3 reportes de arriba y abajo
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
@@ -177,9 +191,99 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
                 document.close();
                 DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 String FECHA = dtf1.format(LocalDateTime.now());
-                //ObRegistros or = new ObRegistros(FECHA, ReporteU , "Reporte 1");
-                //crearreporte(or);
-                //Tengo que crear mi tablita de reportes se hace arribita
+                ObRegistros or = new ObRegistros(FECHA, ReporteU , "Reporte 1");
+                crearreporte(or);
+                
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    //*****************************************************************************
+    //MÉTODO PARA EL REPORTE DE LIBROS
+    public void reporteL(){
+        String nombreReporte;
+        File reporte;
+        FileWriter fw;
+        BufferedWriter br;
+        String cadenaHTML;
+        
+        try {            
+            nombreReporte = "RL.html"; //Nombre del archivo html
+            reporte = new File(nombreReporte);
+            fw = new FileWriter(reporte);
+            br = new BufferedWriter(fw);
+            
+            cadenaHTML = "<html>"
+                    + "    <head>"
+                    + "    <body>"
+                    + "        <table border = 2>"
+                    + "            <tr>"
+                    + "                <td>Titulo</td>" //Esto es para el encabezado 
+                    + "                <td>ID</td>"
+                    + "                <td>Autor</td>"
+                    + "                <td>Tipo</td>"
+                    + "                <td>Copias</td>"
+                    + "                <td>Disponibles</td>"
+                    + "                <td>Ocupados</td>"
+                    + "            </tr>";
+                    
+            
+            for(int i = 0; i < contlibros; i++){ //MI CANTIDAD DE ARREGLO MI CONTADOR DE USUARIO
+                if(oblibros[i] != null){ //Llamar arreglo 
+                    cadenaHTML +=  "            <tr>"
+                    + "                <td>" + oblibros[i].getTitulo() + "</td>" //llamamos lo que contiene la tabla
+                    + "                <td>" + oblibros[i].getIDlibro() + "</td>"
+                    + "                <td>" + oblibros[i].getAutor()+ "</td>"
+                    + "                <td>" + oblibros[i].getTipos()+ "</td>"
+                    + "                <td>" + oblibros[i].getCopias()+ "</td>"
+                    + "                <td>" + oblibros[i].getDisponibles()+ "</td>"
+                    + "                <td>" + oblibros[i].getOcupados()+ "</td>"
+                    + "                </tr>";
+                }
+            }
+            
+            cadenaHTML += "        </table>"
+                        + "    </body>"
+                        + "</html>";
+            
+            br.write(cadenaHTML);
+            
+            br.close();
+            fw.close();
+            
+            pdflibros(cadenaHTML);
+            
+        } catch (IOException ex) {
+            System.out.println("error escribiendo el reporte. Detalles " + ex.getMessage());
+        }
+    }
+    //**************************************************************************
+    //METODO PARA CREAR PDF DE USUARIOS
+    public void pdflibros(String html){
+        try{ //E métodos para generar 3 reportes de arriba y abajo
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+            String nombre = "reporteLibros_"+dtf.format(LocalDateTime.now());
+            
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter.getInstance(document, new FileOutputStream(nombre+".pdf"));
+
+                document.open();
+                document.addAuthor("Victor Rodriguez");
+                document.addCreator("Victor Rodriguez");
+                document.addSubject("reporteUsuarios");
+                document.addCreationDate();
+                document.addTitle("ReporteLibro");
+
+                HTMLWorker htmlWorker = new HTMLWorker(document);
+                htmlWorker.parse(new StringReader(html));
+
+                document.close();
+                DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String FECHA = dtf1.format(LocalDateTime.now());
+                ObRegistros or = new ObRegistros(FECHA, ReporteU , "Reporte 2");
+                crearreporte(or);
+                
             
         }catch(Exception e){
             e.printStackTrace();
@@ -191,6 +295,9 @@ public class Pestana_Reportes extends JPanel implements ActionListener{
         if (e.getSource() == generar) {
             if (report.getSelectedItem() == "Reporte de Usuario") {
                 reporteu();
+                JOptionPane.showMessageDialog(this, "El reporte de Usuario se realizao a la perfección");
+            }else if (report.getSelectedItem() == "Reporte de Libros"){
+                reporteL();
                 JOptionPane.showMessageDialog(this, "El reporte de Usuario se realizao a la perfección");
             }
         }
