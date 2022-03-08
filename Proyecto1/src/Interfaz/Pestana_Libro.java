@@ -23,6 +23,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
     JLabel idl, namel, autor, codigo, tipo;
     JTextField lib, nombrel, autor1, cop;
     JButton ingresar, masiva1;
+    JTextArea info;
     static JTable tablalibros;
     static Object[][] datos;
     private final JComboBox<String> tip;
@@ -105,6 +106,63 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         lib.setFont(new Font("Verdana", Font.BOLD, 12));
         lib.setVisible(true);
         this.add(lib);
+        
+        //Creando cuadro de texto para poner los datos del json
+        JTextArea info = new JTextArea( "{\n" +
+"	\"Libros\":[\n" +
+"		{\n" +
+"			\"Titulo\": \"titulo libro\",\n" +
+"			\"ID\": 1,\n" +
+"			\"Autor\":  \"USAC\",\n" +
+"			\"Tipo\": 1,\n" +
+"			\"Copias\": 60,\n" +
+"			\"Disponibles\": 50,\n" +
+"			\"Ocupados\": 10\n" +
+"		},\n" +
+"		{\n" +
+"			\"Titulo\": \"titulo libro\",\n" +
+"			\"ID\": 2,\n" +
+"			\"Autor\":  \"USAC\",\n" +
+"			\"Tipo\": 1,\n" +
+"			\"Copias\": 60,\n" +
+"			\"Disponibles\": 50,\n" +
+"			\"Ocupados\": 10\n" +
+"		},\n" +
+"		{\n" +
+"			\"Titulo\": \"titulo libro\",\n" +
+"			\"ID\": 3,\n" +
+"			\"Autor\":  \"USAC\",\n" +
+"			\"Tipo\": 1,\n" +
+"			\"Copias\": 60,\n" +
+"			\"Disponibles\": 50,\n" +
+"			\"Ocupados\": 10\n" +
+"		},\n" +
+"		{\n" +
+"			\"Titulo\": \"titulo libro\",\n" +
+"			\"ID\": 4,\n" +
+"			\"Autor\":  \"USAC\",\n" +
+"			\"Tipo\": 1,\n" +
+"			\"Copias\": 60,\n" +
+"			\"Disponibles\": 50,\n" +
+"			\"Ocupados\": 10\n" +
+"		},\n" +
+"		{\n" +
+"			\"Titulo\": \"titulo libro\",\n" +
+"			\"ID\": 5,\n" +
+"			\"Autor\":  \"USAC\",\n" +
+"			\"Tipo\": 1,\n" +
+"			\"Copias\": 60,\n" +
+"			\"Disponibles\": 50,\n" +
+"			\"Ocupados\": 10\n" +
+"		}"
+                + "	]\n" +
+"}" ); 
+        info.setVisible(true);
+        info.setEditable(true);
+        JScrollPane js = new JScrollPane(info);
+        js.setBounds(300, 350, 950, 250); 
+        info.setFont(new Font("Verdana", Font.BOLD, 10));
+        this.add(js);
 
         //*************************************************************************
         //CREACIÓN TODOS LOS TITULOS    
@@ -153,14 +211,14 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         String[] cabeza = {"Nombre Libro", "ID Libro", "Autor", "tipo", "Copias", "Disponibles", "Ocupados"}; //Arreglo del encabezado
         datos = mlibro();
         tablalibros = new JTable(datos, cabeza);
-        JScrollPane js = new JScrollPane(tablalibros);
-        js.setBounds(300, 10, 950, 600);
+        JScrollPane js1 = new JScrollPane(tablalibros);
+        js1.setBounds(300, 10, 950, 330);
         DefaultTableModel modelo = new DefaultTableModel(datos, cabeza) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        this.add(js);
+        this.add(js1);
 
         //************************************************************************
         //CREACIÓN DE LA PESTAÑA LIBRO

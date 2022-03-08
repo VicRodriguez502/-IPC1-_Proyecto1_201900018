@@ -26,6 +26,7 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
     JLabel usuario, libro, fecha;
     JTextField idusu, idlb, idfecha;
     JButton prestar, masiva2;
+    JTextArea info;
     static JTable tablaPrestamo;
     static Object[][] datos1;
 
@@ -92,6 +93,28 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
         idfecha.setFont(new Font("Verdana", Font.BOLD, 12));
         idfecha.setVisible(true);
         this.add(idfecha);
+        
+        //Creando cuadro de texto para poner los datos del json
+        JTextArea info = new JTextArea( "{\n" +
+"	\"Prestamos\":[\n" +
+"		{\n" +
+"			\"IDLibro\": 1,\n" +
+"			\"IDUsuario\": 2,\n" +
+"			\"FechaEntrega\":  \"20/02/2022\"\n" +
+"		},\n" +
+"		{\n" +
+"			\"IDLibro\": 2,\n" +
+"			\"IDUsuario\": 2,\n" +
+"			\"FechaEntrega\":  \"20/02/2022\"\n" +
+"		}\n" +
+"	]\n" +
+"}" ); 
+        info.setVisible(true);
+        info.setEditable(true);
+        JScrollPane js2 = new JScrollPane(info);
+        js2.setBounds(350, 350, 920, 250); 
+        info.setFont(new Font("Verdana", Font.BOLD, 10));
+        this.add(js2);
 
         //*************************************************************************
         //CREACIÓN TODOS LSO BOTONES    
@@ -121,7 +144,7 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
         datos1 = mPrestamo();
         tablaPrestamo = new JTable(datos1, titulo);
         JScrollPane js = new JScrollPane(tablaPrestamo);
-        js.setBounds(350, 10, 900, 600);
+        js.setBounds(350, 10, 920, 330);
         this.add(js);
 
         //**************************************************************************

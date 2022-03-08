@@ -15,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import static proyecto1.Proyecto1.contusuario;
 import static proyecto1.Proyecto1.obuser;
 
@@ -25,7 +24,7 @@ public class Pantalla_login extends JFrame implements ActionListener {
     JLabel contra;
     JTextField inusuario;
     JPasswordField incontra;
-    TextArea info;
+    JTextArea info;
     static JButton login;
     static JButton masiva, actualizar;
     static JTable tablausu;
@@ -62,16 +61,6 @@ public class Pantalla_login extends JFrame implements ActionListener {
         masiva.setVisible(true);
         masiva.addActionListener(this);
         this.add(masiva);
-        
-         //Creamos el boton de carga masiva
-        actualizar = new JButton("Actualizar");
-        actualizar.setBounds(10, 450, 180, 35);
-        actualizar.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 14));
-        actualizar.setBackground(azulejo);
-        actualizar.setForeground(Color.white);
-        actualizar.setVisible(true);
-        actualizar.addActionListener(this);
-        this.add(actualizar);
 
         //Creando boton para iniciar sesión
         login = new JButton("Iniciar Sesión");
@@ -100,13 +89,33 @@ public class Pantalla_login extends JFrame implements ActionListener {
         this.add(incontra);
         
         //Creando cuadro de texto para poner los datos del json
-       /* info = new TextArea();
-        info.setBounds(200, 450, 300, 80);
+        JTextArea info = new JTextArea( "{\n" +
+"	\"Usuarios\":[\n" +
+"		{\n" +
+"			\"ID\": 1,\n" +
+"			\"Usuario\": \"user\",\n" +
+"			\"Password\": \"123456\",\n" +
+"			\"Facultad\" : \"Administrador\",\n" +
+"			\"Carrera\": \"Administrador\",\n" +
+"			\"Tipo\":  1\n" +
+"		},\n" +
+"		{\n" +
+"			\"ID\": 2,\n" +
+"			\"Usuario\": \"user1\",\n" +
+"			\"Password\": \"123456\",\n" +
+"			\"Facultad\" : \"Ingenieria\",\n" +
+"			\"Carrera\": \"Ingenieria en ciencias y sistemas\",\n" +
+"			\"Tipo\":  2\n" +
+"		}\n" +
+"	]\n" +
+"}" ); 
+       // info.setBounds(200, 350, 450, 250);
         info.setVisible(true);
-        info.setEditable(false);
-        info.setFont(new Font("Verdana", Font.BOLD, 14));
-        info.getText();
-        this.add(info);*/
+        info.setEditable(true);
+        JScrollPane js = new JScrollPane(info);
+        js.setBounds(200, 350, 450, 250);
+        info.setFont(new Font("Verdana", Font.BOLD, 8));
+        this.add(js);
 
         //**************************************************************************
         //CREACIÓN TODOS LOS TITULOS    
@@ -140,19 +149,6 @@ public class Pantalla_login extends JFrame implements ActionListener {
         logo.setVisible(true); 
         this.add(logo);
         
-        
-        //**************************************************************************
-        String[] cabeza = {"ID", "Usuario", "Password", "Facultad", "Carrera", "Tipo"}; //Arreglo del encabezado
-        datos = mUsuario();
-        tablausu = new JTable(datos, cabeza);
-        JScrollPane js = new JScrollPane(tablausu);
-        js.setBounds(220, 440, 400,100);
-        DefaultTableModel modelo = new DefaultTableModel(datos, cabeza) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        this.add(js);
 
         //*********************************************************************
         //CREACIÓN DEL DISEÑO DE LA VENTANA
@@ -179,23 +175,6 @@ public class Pantalla_login extends JFrame implements ActionListener {
             obuser[contusuario] = usuario;
             contusuario++;
         }
-    }
-
-    //******************************************************************************
-    //FUNCIÓN PARA AÑADIR PRESTAMOS A LA TABLA
-    public static Object[][] mUsuario() {
-        Object[][] usuario = new Object[contusuario][6];
-        for (int i = 0; i < contusuario; i++) {
-            if (obuser[i] != null) {
-                usuario[i][0] = obuser[i].getID();
-                usuario[i][1] = obuser[i].getUsuario();
-                usuario[i][2] = obuser[i].getPassword();
-                usuario[i][3] = obuser[i].getFacultad();
-                usuario[i][4] = obuser[i].getCarrera();
-                usuario[i][5] = obuser[i].getTipo();
-            }
-        }
-        return usuario;
     }
 
     //******************************************************************************

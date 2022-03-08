@@ -20,7 +20,7 @@
 		},
 		{
 			"Titulo": "titulo libro",
-			"ID": 31,
+			"ID": 3,
 			"Autor":  "USAC",
 			"Tipo": 1,
 			"Copias": 60,
@@ -56,7 +56,7 @@
 		},
 		{
 			"Titulo": "titulo libro",
-			"ID": 71,
+			"ID": 7,
 			"Autor":  "USAC",
 			"Tipo": 1,
 			"Copias": 60,
