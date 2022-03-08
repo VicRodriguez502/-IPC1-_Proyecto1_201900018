@@ -155,8 +155,8 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         tablalibros = new JTable(datos, cabeza);
         JScrollPane js = new JScrollPane(tablalibros);
         js.setBounds(300, 10, 950, 600);
-        DefaultTableModel modelo = new DefaultTableModel(datos, cabeza){
-            public boolean isCellEditable(int row, int column){
+        DefaultTableModel modelo = new DefaultTableModel(datos, cabeza) {
+            public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
@@ -178,7 +178,6 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             contlibros++;
         }
     }
-    
 
     //****************************************************************************
     //FUNCION PARA AÑADIR LOS LIBROS A LA TABLA 
@@ -187,7 +186,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         for (int i = 0; i < contlibros; i++) {
             if (oblibros[i] != null) {
                 libros[i][0] = oblibros[i].getTitulo();
-                libros[i][1] = oblibros[i].getIDlibro(); 
+                libros[i][1] = oblibros[i].getIDlibro();
                 libros[i][2] = oblibros[i].getAutor();
                 if (oblibros[i].getTipos() == 1) {
                     libros[i][3] = "Libro";
@@ -237,15 +236,16 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         }
 
     }
+
     //******************************************************************************
     //
-    public static String retornarlib(int ID){
+    public static String retornarlib(int ID) {
         for (int i = 0; i < contlibros; i++) {
             if (oblibros[i].getIDlibro() == ID) {
                 System.out.println(oblibros[i].getTitulo());
                 return oblibros[i].getTitulo();
             }
-        } 
+        }
         return null;
     }
 
@@ -254,7 +254,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
     public void cargamaslibros(String content) {
         JsonParser parser = new JsonParser();
         Object contenido = parser.parse(content);
-        JsonObject objetito = (JsonObject) contenido; 
+        JsonObject objetito = (JsonObject) contenido;
         Object jsonarrayobyeto = objetito.get("Libros");
         JsonArray arreglo = (JsonArray) jsonarrayobyeto;
         System.out.println("Cantidad Objetos: " + arreglo.size());
