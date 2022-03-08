@@ -1,26 +1,42 @@
 package Clases;
 
 public class ObUsuarios {
-    //tributos para el objeto usuarios
+
+    //******************************************************************************
+    //ATRIBUTOS PARA EL OBJETO USUARIOS
     private int ID;
-    private String nameusuario;
-    private String contrasena;
-    private String facultad;
-    private String carrera;
-    private int tipouser;
-    
-    //Generamos constructor para el objeto usuarios
+    private String Usuario;
+    private String Password;
+    private String Facultad;
+    private String Carrera;
+    private int Tipo;
 
-    public ObUsuarios(int ID, String nameusuario, String contrasena, String facultad, String carrera, int tipouser) {
+    //******************************************************************************
+    //CONSTRUCTOR PARA EL OBJETO USUARIOS
+    public ObUsuarios(int ID, String Usuario, String Password, String Facultad, String Carrera, int Tipo) {
         this.ID = ID;
-        this.nameusuario = nameusuario;
-        this.contrasena = contrasena;
-        this.facultad = facultad;
-        this.carrera = carrera;
-        this.tipouser = tipouser;
+        this.Usuario = Usuario;
+        this.Password = Password;
+        this.Facultad = Facultad;
+        this.Carrera = Carrera;
+        this.Tipo = Tipo;
     }
-    //Genaramos encapsulamiento con get y set para lso parametros
-
+    
+    //******************************************************************************
+    //METODO PARA LEER EL JSON EN CONSOLA
+    //METODO PARA MOSTRAR LOS OBJETOS
+    public void Mostrarusuarios(){
+        System.out.println("******************************");
+        System.out.println("**          USUARIO         **");
+        System.out.println("ID: " + ID);
+        System.out.println("Usuario: " + Usuario);
+        System.out.println("Password: " + Password);
+        System.out.println("Facultad: " + Facultad);
+        System.out.println("Carrera: "+ Carrera);
+        System.out.println("Tipo: "+ Tipo);
+    }
+    //******************************************************************************
+    //ENCAPSULAMIENTO GET Y SET, PARA LOS PARAMETROS DEL OBJETO 
     /**
      * @return the ID
      */
@@ -36,74 +52,73 @@ public class ObUsuarios {
     }
 
     /**
-     * @return the nameusuario
+     * @return the Usuario
      */
-    public String getNameusuario() {
-        return nameusuario;
+    public String getUsuario() {
+        return Usuario;
     }
 
     /**
-     * @param nameusuario the nameusuario to set
+     * @param Usuario the Usuario to set
      */
-    public void setNameusuario(String nameusuario) {
-        this.nameusuario = nameusuario;
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
     }
 
     /**
-     * @return the contrasena
+     * @return the Password
      */
-    public String getContrasena() {
-        return contrasena;
+    public String getPassword() {
+        return Password;
     }
 
     /**
-     * @param contrasena the contrasena to set
+     * @param Password the Password to set
      */
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String Password) {
+        this.Password = Password;
     }
 
     /**
-     * @return the facultad
+     * @return the Facultad
      */
     public String getFacultad() {
-        return facultad;
+        return Facultad;
     }
 
     /**
-     * @param facultad the facultad to set
+     * @param Facultad the Facultad to set
      */
-    public void setFacultad(String facultad) {
-        this.facultad = facultad;
+    public void setFacultad(String Facultad) {
+        this.Facultad = Facultad;
     }
 
     /**
-     * @return the carrera
+     * @return the Carrera
      */
     public String getCarrera() {
-        return carrera;
+        return Carrera;
     }
 
     /**
-     * @param carrera the carrera to set
+     * @param Carrera the Carrera to set
      */
-    public void setCarrera(String carrera) {
-        this.carrera = carrera;
+    public void setCarrera(String Carrera) {
+        this.Carrera = Carrera;
     }
 
     /**
-     * @return the tipouser
+     * @return the Tipo
      */
-    public int getTipouser() {
-        return tipouser;
+    public int getTipo() {
+        return Tipo;
     }
 
     /**
-     * @param tipouser the tipouser to set
+     * @param Tipo the Tipo to set
      */
-    public void setTipouser(int tipouser) {
-        this.tipouser = tipouser;
+    public void setTipo(int Tipo) {
+        this.Tipo = Tipo;
     }
-    
-    
+
 }

@@ -1,6 +1,10 @@
 package Interfaz;
 //importamos las librerías que nos ayudaran con la interfaz
 
+import Clases.ObUsuarios;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -10,8 +14,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.*;
-import Interfaz.VentanaPrincipal;
-import java.awt.HeadlessException;
+import static proyecto1.Proyecto1.contusuario;
+import static proyecto1.Proyecto1.obuser;
 
 public class Pantalla_login extends JFrame implements ActionListener {
 
@@ -21,14 +25,15 @@ public class Pantalla_login extends JFrame implements ActionListener {
     JPasswordField incontra;
     static JButton login;
     static JButton masiva;
-    static String usu1, pass;
+    
+
     //Colores
     Color plateado = new Color(113, 125, 126);
     Color verdeclaro = new Color(130, 224, 170);
     Color azulejo = new Color(39, 55, 70);
 
     //ATRIBUTOS Y VARIABLES PARA CREAR EL JSON Y CARGA MASIVA
-    String contenido1 = "";
+    String contenido = "";
     File json1;
     FileReader lectura1;
     BufferedReader buff1;
@@ -128,8 +133,17 @@ public class Pantalla_login extends JFrame implements ActionListener {
 
     }
 
-    //MÉTODO YA CREADO POR JAVA PARA ABRIR UNA VENTANA EMERGENTE PARA SUBIDA DE DATOS
-    //se modificara para poder leer un archivo json
+    //*******************************************************************************
+    //METODO PARA AÑADIR EL ARREGLO DE USUARIOS
+    public static void crearusu(ObUsuarios usuario) {
+        if (contusuario < obuser.length) {
+            obuser[contusuario] = usuario;
+            contusuario++;
+        }
+    }
+
+    //******************************************************************************
+    //METODO PARA ABRIR UNA VENTANA EMERGENTE Y ESCOGER EL ARCHIVO JSON
     public void leerarchivos() {
         try {
             JFileChooser fc = new JFileChooser();
@@ -144,8 +158,9 @@ public class Pantalla_login extends JFrame implements ActionListener {
             String casilla1;
             //Lo siguiente se leera linea a linea
             while ((casilla1 = buff1.readLine()) != null) {
-                contenido1 += casilla1;
+                contenido += casilla1;
             }
+            cargamasusuario(contenido);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -160,6 +175,38 @@ public class Pantalla_login extends JFrame implements ActionListener {
 
     }
 
+    //******************************************************************************
+    //METODO PARA LEER EN CONSOLA EL JSON
+    public void leerusuario() {
+        for (int i = 0; i < contusuario; i++) {
+            obuser[i].Mostrarusuarios();
+        }
+    }
+
+    //******************************************************************************
+    //METODO PARA CARGA MASIVA UTILIZANDO LIBRERIA gson-2.2.2.jar
+    public void cargamasusuario(String content) {
+        JsonParser parser = new JsonParser();
+        Object contenido = parser.parse(content);
+        JsonObject objetito = (JsonObject) contenido;
+        Object obj = objetito.get("Usuarios");
+        JsonArray arreglo1 = (JsonArray) obj;
+        System.out.println("Cantidad de Objetos: " + arreglo1.size());
+        for (int i = 0; i < arreglo1.size(); i++) {
+            JsonObject obj1 = arreglo1.get(i).getAsJsonObject();
+            int ID = obj1.get("ID").getAsInt();
+            String Usuario = obj1.get("Usuario").getAsString();
+            String Password = obj1.get("Password").getAsString();
+            String Facultad = obj1.get("Facultad").getAsString();
+            String Carrera = obj1.get("Carrera").getAsString();
+            int Tipo = obj1.get("Tipo").getAsInt();
+            ObUsuarios nuevo = new ObUsuarios(ID, Usuario, Password, Facultad, Carrera, Tipo);
+            crearusu(nuevo);
+        }
+        leerusuario();
+    }
+
+    //******************************************************************************
     //MÉTODO PARA PODER INSERTAR BUALQUIER IMAGEN EN ESTA CLASE
     private Icon setIcono(String path, JLabel logomsc) {
         ImageIcon icon = new ImageIcon(path);
@@ -169,38 +216,97 @@ public class Pantalla_login extends JFrame implements ActionListener {
         return icono;
     }
 
+    //*****************************************************************************
+    //
+    public static String retornarusu(int ID) {
+        for (int i = 0; i < contusuario; i++) {
+            if (obuser[i].getID() == ID) {
+                return obuser[i].getUsuario();
+            }
+        }
+        return null;
+    }
+
+    
+
+    //*****************************************************************************
+    public  boolean verificarusu(String user) {
+        for (int i = 0; i < contusuario; i++) {
+            if (obuser[i].getUsuario().equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //*****************************************************************************
+    public boolean verificarcontra(String user, String contra) {
+        for (int i = 0; i < contusuario; i++) {
+            if (obuser[i].getUsuario().equals(user)) {
+                if (obuser[i].getPassword().equals(contra)) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    //*****************************************************************************
+    public ObUsuarios retornarusuario(String user) {
+        for (int i = 0; i < contusuario; i++) {
+            if (obuser[i].getUsuario().equals(user)) {
+                return obuser[i];
+            }
+
+        }
+        return null;
+    }
+    
+    public static String ReporteU = "";
+    
+            
+            
+            
+            
+    public void ingresar() {
+        String usu1, pass;
+        System.out.println(contusuario);
+        usu1 = inusuario.getText();
+        pass = incontra.getText();
+        ReporteU = usu1;
+        System.out.println(usu1);
+        System.out.println(pass);
+        if (verificarusu(usu1) == true) {
+            if (verificarcontra(usu1, pass) == true) {
+                if (retornarusuario(usu1).getTipo() == 1) {
+                    JOptionPane.showMessageDialog(this, "Bienvenido Jefe");
+                    this.setVisible(false);
+                    VentanaPrincipal vp = new VentanaPrincipal();
+                } else if (retornarusuario(usu1).getTipo() == 2){
+                    JOptionPane.showMessageDialog(this, "Usted no cuenta con los permisos para acceder al sistema");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Contraseña Invalida");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario Invalido");
+        }
+
+    }
+    //******************************************************************************
+    //ACCION PARA DARLE VIDA A LOS BOTONES
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == masiva) {
             System.out.println("Carga de archivo Json");
             leerarchivos();
-            System.out.println(contenido1);
-        }
-         if (e.getSource() == login){
-             ingresar();
-        
-    }
-    }
+            System.out.println(contenido);
 
-    public void ingresar() {
-        usu1 = inusuario.getText();
-        pass = incontra.getText();
-        if (usu1.equals("user") || pass.equals("123456")) {
-            if (usu1.equals("user")) {
-                if (pass.equals("123456")) {
-                    JOptionPane.showMessageDialog(this, "Bienvenido Jefe");
-                    this.inusuario.setText("");
-                    this.incontra.setText("");
-                    this.setVisible(false);
-                    VentanaPrincipal vp = new VentanaPrincipal();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Contraseña Invalida");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario Invalido");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Contraseña y Usuario Invalido");
+        }
+        if (e.getSource() == login) {
+            ingresar();
+
         }
     }
 }

@@ -12,11 +12,7 @@ import static Interfaz.Pestana_Libro.mlibro;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static proyecto1.Proyecto1.contlibros;
 import static proyecto1.Proyecto1.oblibros;
@@ -183,8 +179,6 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         }
     }
     
-    //******************************************************************************
-    //
 
     //****************************************************************************
     //FUNCION PARA AÑADIR LOS LIBROS A LA TABLA 
@@ -243,6 +237,17 @@ public class Pestana_Libro extends JPanel implements ActionListener {
         }
 
     }
+    //******************************************************************************
+    //
+    public static String retornarlib(int ID){
+        for (int i = 0; i < contlibros; i++) {
+            if (oblibros[i].getIDlibro() == ID) {
+                System.out.println(oblibros[i].getTitulo());
+                return oblibros[i].getTitulo();
+            }
+        } 
+        return null;
+    }
 
     //******************************************************************************
     //METODO PARA CARGA MASIVA
@@ -290,7 +295,7 @@ public class Pestana_Libro extends JPanel implements ActionListener {
             } else if (tip.getSelectedItem() == "Libro Electrónico") {
                 t = 3;
             }
-            ObLibros ob = new ObLibros(Nom, ID, aut, t, c, 1, 0);
+            ObLibros ob = new ObLibros(Nom, ID, aut, t, c, c, 0);
             crearlib(ob);
             lib.setText("");
             nombrel.setText("");

@@ -12,9 +12,9 @@
 			"ID": 2,
 			"Usuario": "user1",
 			"Password": "123456",
-			"Tipo":  2,
 			"Facultad" : "Ingenieria",
 			"Carrera": "Ingenieria en ciencias y sistemas",
+			"Tipo":  2
 		}
 	]
 }

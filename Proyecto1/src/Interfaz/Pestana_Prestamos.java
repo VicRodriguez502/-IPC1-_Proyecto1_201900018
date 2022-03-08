@@ -1,6 +1,9 @@
 package Interfaz;
 
 import Clases.ObPrestamos;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -8,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.*;
 import static proyecto1.Proyecto1.contprestamos;
-import static proyecto1.Proyecto1.oblibros;
 import static proyecto1.Proyecto1.obpres;
-import static proyecto1.Proyecto1.obuser;
+
 
 public class Pestana_Prestamos extends JPanel implements ActionListener {
 
@@ -24,7 +30,7 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
     static Object[][] datos1;
 
     //ATRIBUTOS Y VARIABLES PARA CREAR EL JSON Y CARGA MASIVA
-    String contenido2 = "";
+    String contenido = "";
     File json2;
     FileReader lectura2;
     BufferedReader buff2;
@@ -80,7 +86,7 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
         idlb.setVisible(true);
         this.add(idlb);
 
-        //Cuadro Texto para ingresar ID libro
+        //Cuadro Texto para ingresar Fecha
         idfecha = new JTextField();
         idfecha.setBounds(120, 90, 200, 25);
         idfecha.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -111,20 +117,20 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
 
         //*************************************************************************
         //cREACIÓN DE LA TABLA DE PRESTAMOS
-        String[] titulo ={"Nombre Usuario","Libro","Fecha de Entrega","Status"};
+        String[] titulo = {"Nombre Usuario", "Libro", "Fecha de Entrega", "Status"};
         datos1 = mPrestamo();
         tablaPrestamo = new JTable(datos1, titulo);
         JScrollPane js = new JScrollPane(tablaPrestamo);
         js.setBounds(350, 10, 900, 600);
         this.add(js);
-        
-        
+
         //**************************************************************************
         //CREACIÓN DE LA PESTAÑA PRESTAMOS    
         //Diseño de Jpanel
         this.setBackground(plateado);
         this.setLayout(null);
     }
+
     //*******************************************************************************
     //MÉTODO PARA CREAR 
     public static void crearprestamo(ObPrestamos nuevoP) {
@@ -133,15 +139,15 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
             contprestamos++;
         }
     }
-    
+
     //******************************************************************************
     //FUNCIÓN PARA AÑADIR PRESTAMOS A LA TABLA
-    public static Object[][] mPrestamo(){
+    public static Object[][] mPrestamo() {
         Object[][] prestamo = new Object[contprestamos][4];
         for (int i = 0; i < contprestamos; i++) {
             if (obpres[i] != null) {
-                prestamo[i][0] = obpres[i].getIDusuario();
-                prestamo[i][1] = obpres[i].getIDlibro();
+                prestamo[i][0] = Pantalla_login.retornarusu(obpres[i].getIDusuario());
+                prestamo[i][1] = Pestana_Libro.retornarlib(obpres[i].getIDlibro());
                 prestamo[i][2] = obpres[i].getFechasinda();
                 prestamo[i][3] = obpres[i].getStatus();
             }
@@ -165,8 +171,8 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
             String casilla2;
             //Lo siguiente se leera linea a linea
             while ((casilla2 = buff2.readLine()) != null) {
-                contenido2 += casilla2;
-            }
+                contenido += casilla2;
+            }cargamasprestamos(contenido);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -181,26 +187,67 @@ public class Pestana_Prestamos extends JPanel implements ActionListener {
 
     }
 
+    //******************************************************************************
+    //METODO PARA MOSTRAR EL STATUS DE LOS LIBROS
+    public String status(String fech) {
+        String formato = "";
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date1 = dateFormat.parse(fech);
+            Calendar calendar = Calendar.getInstance();
+            Date dateObj = calendar.getTime();
+            String actual = dateFormat.format(dateObj);
+            Date date2 = dateFormat.parse(actual);
+            if (date1.before(date2)) {
+               formato = "Entregado";
+            } else {
+                formato = "Prestado";
+            }
+        } catch (ParseException ex) {
+        }
+        return formato;
+    }
+    
+    //******************************************************************************
+    //METODO PARA CARGA MASIVA DE PRESTAMOS
+    public void cargamasprestamos(String content) {
+        JsonParser parser = new JsonParser();
+        Object contenido = parser.parse(content);
+        JsonObject objetito = (JsonObject) contenido;
+        Object obj = objetito.get("Prestamos");
+        JsonArray arreglo1 = (JsonArray) obj;
+        System.out.println("Cantidad de Objetos: " + arreglo1.size());
+        for (int i = 0; i < arreglo1.size(); i++) {
+           JsonObject obj1 = arreglo1.get(i).getAsJsonObject();
+            int IDL = obj1.get("IDLibro").getAsInt();
+            int IDU = obj1.get("IDUsuario").getAsInt();
+            String fecha = obj1.get("FechaEntrega").getAsString();
+            String estado = status(fecha);
+            ObPrestamos nuevo = new ObPrestamos(IDL, IDU,fecha, estado);
+            crearprestamo(nuevo);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == masiva2) {
             System.out.println("Carga de archivo Json");
             leerarchivos();
-            System.out.println(contenido2);
-            
-            
-        //**************************************************************************
-        //PARA DARLE VIDA AL BOTON PRESTAR
-        }else if (ae.getSource() == prestar){
+            System.out.println(contenido);
+
+            //**************************************************************************
+            //PARA DARLE VIDA AL BOTON PRESTAR
+        } else if (ae.getSource() == prestar) {
             int IDL = Integer.parseInt(idusu.getText());
             int idu = Integer.parseInt(idlb.getText());
             String fechita = idfecha.getText();
-            ObPrestamos op = new ObPrestamos(IDL,idu,fechita,"Prestado");
+            String estado = status(fechita);
+            ObPrestamos op = new ObPrestamos(IDL, idu, fechita, estado);
             crearprestamo(op);
             idusu.setText("");
             idlb.setText("");
-            idfecha.setText(""); 
+            idfecha.setText("");
+           
         }
     }
 }
-   

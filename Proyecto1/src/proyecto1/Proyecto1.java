@@ -11,7 +11,7 @@ public class Proyecto1 {
     public static ObPrestamos[] obpres = new ObPrestamos[200];
     public static ObRegistros[] obreg = new ObRegistros[100];
     //CONTADORES PARA CARGA MASIVA
-    public static int contusuario = 0, contlibros = 0, contprestamos = 0; //Inicializando contador
+    public static int contusuario = 0, contlibros = 0, contprestamos = 0, contregistro = 0; //Inicializando contador
 
     public static void main(String[] args) {
         Pantalla_login pl = new Pantalla_login();
