@@ -55,6 +55,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
         
     //*************************************************************************
     //CREACIÓN DE LA VENTANA PRINCIPAL
+    
+    setIconImage(new ImageIcon(getClass().getResource("Logo png msc.png")).getImage());
      //Creamos el boton de carga masiva
         masiva1 = new JButton("Actualizar");
         masiva1.setBounds(500, 0, 150, 25);
